@@ -6,15 +6,18 @@ public class TestPlayer : MonoBehaviour, IMessageProcess
 {
     private void Start()
     {
-        ushort[] messageIds = new ushort[1] { (ushort)UIMessageId.Message1 };
-        UIManager.Instance.RegistMessage(messageIds, this);
+        ushort[] messageIds = new ushort[]
+        {
+            (ushort)PlayerMessageId.Message1
+        };
+        PlayerManager.Instance.RegistMessage(messageIds, this);
     }
 
     public void ProcessEvent(MessageBase message)
     {
-        if (message.MessageId == (ushort)UIMessageId.Message1)
+        if (message.MessageId == (ushort)PlayerMessageId.Message1)
         {
-            Debug.Log("PlayerGetUIMessage1");
+            Debug.Log("GetPlayerMessage1");
         }
     }
 }

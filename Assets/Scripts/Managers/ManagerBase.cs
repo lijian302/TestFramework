@@ -16,27 +16,44 @@ public abstract class ManagerBase : IMessageProcess
         MessageCenter.Instance.AddManager(this);
     }
 
+    /// <summary>
+    /// 注册消息
+    /// </summary>
+    /// <param name="messages"></param>
+    /// <param name="messageProcess"></param>
     public void RegistMessage(ushort[] messages, IMessageProcess messageProcess)
     {
         nodeList.AddNode(messages, messageProcess);
     }
 
+    /// <summary>
+    /// 取消注册消息
+    /// </summary>
+    /// <param name="messages"></param>
+    /// <param name="messageProcess"></param>
     public void UnRegistMessage(ushort[] messages, IMessageProcess messageProcess)
     {
         nodeList.RemoveNode(messages, messageProcess);
     }
 
+    /// <summary>
+    /// 发送消息
+    /// </summary>
+    /// <param name="message"></param>
     public void SendMessage(MessageBase message)
     {
         MessageCenter.Instance.SendMessage(message);
     }
 
+    /// <summary>
+    /// 处理消息
+    /// </summary>
+    /// <param name="message"></param>
     public void ProcessEvent(MessageBase message)
     {
         if (!nodeList.ContainKey(message.MessageId))
         {
-            Debug.LogError("Key not exist!");
-            Debug.LogError("messageId: " + message.MessageId + ", managerId: " + message.GetManager());
+            Debug.LogError("Key not exist! MessageId: " + message.MessageId + ", ManagerId: " + message.GetManager());
         }
         else
         {

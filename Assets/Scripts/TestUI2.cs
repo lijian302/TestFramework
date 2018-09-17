@@ -18,12 +18,12 @@ public class TestUI2 : MonoBehaviour, IMessageProcess
     {
         if (message.MessageId == (ushort)UIMessageId.Message1)
         {
-            Debug.Log("UIGetUIMessage1");
+            Debug.Log("GetUIMessage1");
         }
         else if (message.MessageId == (ushort)UIMessageId.Message2)
         {
             Vector3 pos = (message as UIPositionMessage).UIPostion;
-            Debug.Log("UIGetUIMessage2: " + pos);
+            Debug.Log("GetUIMessage2: " + pos);
         }
     }
 }

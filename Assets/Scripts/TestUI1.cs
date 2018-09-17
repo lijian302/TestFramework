@@ -19,12 +19,17 @@ public class TestUI1 : MonoBehaviour
             Debug.Log("SendUIMessage1");
             MessageBase message = new MessageBase((ushort)UIMessageId.Message1);
             UIManager.Instance.SendMessage(message);
+            Debug.Log("SendPlayerMessage1");
+            message = new MessageBase((ushort)PlayerMessageId.Message1);
+            UIManager.Instance.SendMessage(message);
         }
         else if (Input.GetKeyDown(KeyCode.B))
         {
             Debug.Log("SendUIMessage2");
-            UIPositionMessage message = new UIPositionMessage((ushort)UIMessageId.Message2);
-            message.UIPostion = Vector3.one;
+            UIPositionMessage message = new UIPositionMessage((ushort)UIMessageId.Message2)
+            {
+                UIPostion = Vector3.one
+            };
             UIManager.Instance.SendMessage(message);
         }
     }

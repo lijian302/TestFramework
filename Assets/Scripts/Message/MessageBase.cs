@@ -8,8 +8,8 @@ using UnityEngine;
 public enum ManagerId
 {
     UIManager = 0,
-    GameManager = MessageBase.span,
-    PlayerManager = MessageBase.span * 2
+    PlayerManager = MessageBase.SPAN,
+    GameManager = MessageBase.SPAN * 2
 }
 
 /// <summary>
@@ -19,7 +19,8 @@ public enum UIMessageId
 {
     Message1 = ManagerId.UIManager,
     Message2,
-    Message3
+    Message3,
+    MaxValue
 }
 
 /// <summary>
@@ -29,7 +30,8 @@ public enum PlayerMessageId
 {
     Message1 = ManagerId.PlayerManager,
     Message2,
-    Message3
+    Message3,
+    MaxValue
 }
 
 /// <summary>
@@ -37,19 +39,12 @@ public enum PlayerMessageId
 /// </summary>
 public class MessageBase
 {
-    public const int span = 3000;
-    private ushort messageId;
-    public ushort MessageId
-    {
-        get
-        {
-            return messageId;
-        }
-    }
+    public const int SPAN = 3000;
+    public ushort MessageId { get; }
 
     public MessageBase(ushort messageId)
     {
-        this.messageId = messageId;
+        this.MessageId = messageId;
     }
 
     /// <summary>
@@ -58,6 +53,6 @@ public class MessageBase
     /// <returns></returns>
     public ManagerId GetManager()
     {
-        return (ManagerId)((int)(messageId / span) * span);
+        return (ManagerId)((int)(MessageId / SPAN) * SPAN);
     }
 }

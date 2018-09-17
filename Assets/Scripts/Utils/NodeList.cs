@@ -138,6 +138,33 @@ public class NodeList<TKey, TValue>
             }
         }
     }
+
+    /// <summary>
+    /// 是否包含key
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public bool ContainKey(TKey key)
+    {
+        return nodeDic.ContainsKey(key);
+    }
+
+    /// <summary>
+    /// 索引器
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public Node<TValue> this[TKey key]
+    {
+        get
+        {
+            return nodeDic[key];
+        }
+        set
+        {
+            nodeDic[key] = value;
+        }
+    }
 }
 
 public class Node<T>

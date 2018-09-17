@@ -2,26 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ManagerBase : MonoBase
+/// <summary>
+/// 管理器基类
+/// </summary>
+public abstract class ManagerBase : IMessageProcess
 {
-    private NodeList<ushort, MonoBase> nodeList;
+    public abstract ManagerId Id { get; }
+    private NodeList<ushort, IMessageProcess> nodeList;
 
     public ManagerBase()
     {
-        nodeList = new NodeList<ushort, MonoBase>();
+        nodeList = new NodeList<ushort, IMessageProcess>();
+        MessageCenter.Instance.AddManager(this);
     }
 
-    public void RegistMessage(ushort[] messages, MonoBase mono)
+    public void RegistMessage(ushort[] messages, IMessageProcess messageProcess)
     {
-        nodeList.AddNode(messages, mono);
+        nodeList.AddNode(messages, messageProcess);
     }
 
-    public void UnRegistMessage(ushort[] messages, MonoBase mono)
+    public void UnRegistMessage(ushort[] messages, IMessageProcess messageProcess)
     {
-        nodeList.RemoveNode(messages, mono);
+        nodeList.RemoveNode(messages, messageProcess);
     }
 
-    public override void ProcessEvent(MessageBase message)
+    public void SendMessage(MessageBase message)
+    {
+        MessageCenter.Instance.SendMessage(message);
+    }
+
+    public void ProcessEvent(MessageBase message)
     {
         if (!nodeList.ContainKey(message.MessageId))
         {
@@ -30,7 +40,7 @@ public class ManagerBase : MonoBase
         }
         else
         {
-            Node<MonoBase> temp = nodeList[message.MessageId];
+            Node<IMessageProcess> temp = nodeList[message.MessageId];
             while (temp != null)
             {
                 temp.data.ProcessEvent(message);

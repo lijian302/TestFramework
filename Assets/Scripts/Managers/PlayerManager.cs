@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : ManagerBase
+public class PlayerManager : ManagerBase
 {
-    private static UIManager instance;
-    public static UIManager Instance
+    private static PlayerManager instance;
+    public static PlayerManager Instance
     {
         get
         {
             if (instance == null)
             {
-                instance = new UIManager();
+                instance = new PlayerManager();
             }
             return instance;
         }
@@ -21,9 +21,9 @@ public class UIManager : ManagerBase
     {
         get
         {
-            return ManagerId.UIManager;
+            return ManagerId.PlayerManager;
         }
     }
 
-    private UIManager() { }
+    private PlayerManager() : base() { }
 }

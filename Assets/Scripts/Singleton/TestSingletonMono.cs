@@ -12,21 +12,11 @@ public class TestSingletonMono : MonoBehaviour
             if (instance == null)
             {
                 GameObject go = new GameObject("TestSingletonMono");
-                go.AddComponent<TestSingletonMono>();
+                instance = go.AddComponent<TestSingletonMono>();
+                DontDestroyOnLoad(go);
             }
             return instance;
         }
-    }
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Destroy(this);
-            return;
-        }
-        instance = this;
-        DontDestroyOnLoad(this);
     }
 
     private TestSingletonMono() { }
